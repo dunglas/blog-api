@@ -1,0 +1,10 @@
+services:
+    resource.blog_posting:
+        parent:    "api.resource"
+        arguments: [ "AppBundle\\Entity\\BlogPosting" ]
+        tags:      [ { name: "api.resource" } ]
+
+    resource.person:
+        parent:    "api.resource"
+        arguments: [ "AppBundle\\Entity\\Person" ]
+        tags:      [ { name: "api.resource" } ]
