@@ -20,7 +20,6 @@ abstract class CreativeWork extends Thing
      * @var Person The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.
      *
      * @ORM\ManyToOne(targetEntity="Person")
-     * @ORM\JoinColumn(nullable=false)
      * @Iri("https://schema.org/author")
      */
     private $author;

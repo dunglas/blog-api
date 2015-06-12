@@ -15,7 +15,7 @@ types: # The list of type to generated (a PHP entity class by type will be gener
     properties:
       author:
         range: Person # PHP Schema handle relations. Here we force the type of the property to Person
-        cardinality: (*..1)
+        cardinality: (*..0)
       headline: ~
       isFamilyFriendly: ~
       datePublished: ~
