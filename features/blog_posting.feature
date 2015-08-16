@@ -53,7 +53,7 @@ Feature: Blog
     """
     {
         "name": "Dunglas's API Platform is great",
-        "headline": "You'll that framework!",
+        "headline": "You'll enjoy that framework!",
         "articleBody": "The body of my article.",
         "articleSection": "technology",
         "author": "/people/1",
@@ -88,7 +88,7 @@ Feature: Blog
     """
     {
         "name": "Dunglas's API Platform is great",
-        "headline": "You'll that framework!",
+        "headline": "You'll enjoy that framework!",
         "articleBody": "The body of my article.",
         "articleSection": "technology",
         "author": "/people/1",
@@ -110,7 +110,7 @@ Feature: Blog
       "articleSection": "technology",
       "author": "/people/1",
       "datePublished": "2015-05-11T00:00:00+02:00",
-      "headline": "You'll that framework!",
+      "headline": "You'll enjoy that framework!",
       "isFamilyFriendly": true,
       "name": "Dunglas's API Platform is great"
     }
