@@ -8,7 +8,12 @@ Feature: Blog
   Scenario: Create a person
     When I send a "POST" request to "/people" with body:
     """
-    {"name": "Kévin"}
+    {
+      "familyName": "Lenancker",
+      "givenName": "Olivier",
+      "description": "A famous author from the North.",
+      "birthDate": "666-06-06"
+    }
     """
     Then the response status code should be 201
     And the response should be in JSON
@@ -19,7 +24,11 @@ Feature: Blog
       "@context": "/contexts/Person",
       "@id": "/people/1",
       "@type": "http://schema.org/Person",
-      "name": "Kévin"
+      "birthDate": "0666-06-06T00:00:00+00:00",
+      "deathDate": null,
+      "description": "A famous author from the North.",
+      "familyName": "Lenancker",
+      "givenName": "Olivier"
     }
     """
 
@@ -33,18 +42,19 @@ Feature: Blog
     {
       "@context": "/contexts/Person",
       "@id": "/people",
-      "@type": "hydra:PagedCollection",
-      "hydra:totalItems": 1,
-      "hydra:itemsPerPage": 30,
-      "hydra:firstPage": "/people",
-      "hydra:lastPage": "/people",
+      "@type": "hydra:Collection",
       "hydra:member": [
-          {
-              "@id": "/people/1",
-              "@type": "http://schema.org/Person",
-              "name": "Kévin"
-          }
-      ]
+        {
+          "@id": "/people/1",
+          "@type": "http://schema.org/Person",
+          "birthDate": "0666-06-06T00:00:00+00:00",
+          "deathDate": null,
+          "description": "A famous author from the North.",
+          "familyName": "Lenancker",
+          "givenName": "Olivier"
+        }
+      ],
+      "hydra:totalItems": 1
     }
     """
 
@@ -52,13 +62,14 @@ Feature: Blog
     When I send a "POST" request to "/blog_postings" with body:
     """
     {
-        "name": "Dunglas's API Platform is great",
-        "headline": "You'll enjoy that framework!",
-        "articleBody": "The body of my article.",
-        "articleSection": "technology",
-        "author": "/people/1",
-        "isFamilyFriendly": "maybe",
-        "datePublished": "2015-05-11"
+      "name": "API Platform is great",
+      "headline": "You'll love that framework!",
+      "articleBody": "The body of my article.",
+      "articleSection": "technology",
+      "author": "/people/1",
+      "isFamilyFriendly": "maybe",
+      "datePublished": "2015-05-11",
+      "kevinReview": "nice"
     }
     """
     Then the response status code should be 400
@@ -67,19 +78,18 @@ Feature: Blog
     And the JSON should be equal to:
     """
     {
-        "@context": "/contexts/ConstraintViolationList",
-        "@type": "ConstraintViolationList",
-        "hydra:title": "An error occurred",
-        "hydra:description": "isFamilyFriendly: This value should be of type boolean.\n",
-        "violations": [
-            {
-                "propertyPath": "isFamilyFriendly",
-                "message": "This value should be of type boolean."
-            }
-        ]
+      "@context": "/contexts/ConstraintViolationList",
+      "@type": "ConstraintViolationList",
+      "hydra:title": "An error occurred",
+      "hydra:description": "isFamilyFriendly: This value should be of type boolean.",
+      "violations": [
+        {
+          "propertyPath": "isFamilyFriendly",
+          "message": "This value should be of type boolean."
+        }
+      ]
     }
     """
-
 
   # "@dropSchema" is mandatory to cleanup the temporary database on the last scenario
   @dropSchema
@@ -87,13 +97,14 @@ Feature: Blog
     When I send a "POST" request to "/blog_postings" with body:
     """
     {
-        "name": "Dunglas's API Platform is great",
-        "headline": "You'll enjoy that framework!",
-        "articleBody": "The body of my article.",
-        "articleSection": "technology",
-        "author": "/people/1",
-        "isFamilyFriendly": true,
-        "datePublished": "2015-05-11"
+      "name": "API Platform is great",
+      "headline": "You'll love that framework!",
+      "articleBody": "The body of my article.",
+      "articleSection": "technology",
+      "author": "/people/1",
+      "isFamilyFriendly": true,
+      "datePublished": "2015-05-11",
+      "kevinReview": "nice"
     }
     """
     Then the response status code should be 201
@@ -109,9 +120,10 @@ Feature: Blog
       "articleBody": "The body of my article.",
       "articleSection": "technology",
       "author": "/people/1",
-      "datePublished": "2015-05-11T00:00:00+02:00",
-      "headline": "You'll enjoy that framework!",
+      "datePublished": "2015-05-11T00:00:00+00:00",
+      "headline": "You'll love that framework!",
       "isFamilyFriendly": true,
-      "name": "Dunglas's API Platform is great"
+      "name": "API Platform is great",
+      "kevinReview": "nice"
     }
     """
